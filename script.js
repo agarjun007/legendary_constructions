@@ -82,3 +82,71 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
+
+// Dynamic year in footer
+document.addEventListener('DOMContentLoaded', () => {
+    const yearEl = document.getElementById('current-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Video card click handling: open YouTube links or local videos in modal
+    const videoCards = document.querySelectorAll('.video-card');
+
+    function createModal(videoSrc, isYouTube) {
+        // modal container
+        const modal = document.createElement('div');
+        modal.className = 'video-modal';
+
+        const inner = document.createElement('div');
+        inner.className = 'video-inner';
+
+        // close button
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-btn';
+        closeBtn.innerHTML = '✕';
+        closeBtn.addEventListener('click', () => {
+            if (!isYouTube) {
+                const vid = modal.querySelector('video');
+                if (vid) { vid.pause(); vid.src = ''; }
+            }
+            document.body.removeChild(modal);
+        });
+
+        if (isYouTube) {
+            // open youtube in a new tab instead of modal for simplicity
+            window.open(videoSrc, '_blank', 'noopener');
+            return null;
+        }
+
+        // local video element
+        const video = document.createElement('video');
+        video.controls = true;
+        video.autoplay = true;
+        video.src = videoSrc;
+
+        inner.appendChild(video);
+        modal.appendChild(inner);
+        modal.appendChild(closeBtn);
+        document.body.appendChild(modal);
+
+        return modal;
+    }
+
+    videoCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            const youtube = card.getAttribute('data-youtube');
+            const src = card.getAttribute('data-src');
+
+            if (youtube) {
+                // open YouTube link in new tab
+                createModal(youtube, true);
+                return;
+            }
+
+            if (src) {
+                // open modal with local video
+                createModal(src, false);
+                return;
+            }
+        });
+    });
+});

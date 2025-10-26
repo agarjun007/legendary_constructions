@@ -137,8 +137,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="portfolio-card">
-                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"
-                                alt="Modern Villa">
+                            <img src="images/1.jpg" alt="Modern Villa">
                             <div class="portfolio-info">
                                 <h3>Modern Villa</h3>
                                 <p class="location">📍 Beverly Hills, CA</p>
@@ -148,8 +147,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="portfolio-card">
-                            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800"
-                                alt="Commercial Complex">
+                            <img src="images/2.jpg" alt="Commercial Complex">
                             <div class="portfolio-info">
                                 <h3>Commercial Complex</h3>
                                 <p class="location">📍 Downtown LA, CA</p>
@@ -159,8 +157,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="portfolio-card">
-                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800"
-                                alt="Family Home">
+                            <img src="images/3.jpg" alt="Family Home">
                             <div class="portfolio-info">
                                 <h3>Family Home</h3>
                                 <p class="location">📍 San Diego, CA</p>
@@ -170,8 +167,7 @@
                     </div>
                     <div class="swiper-slide">
                         <div class="portfolio-card">
-                            <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800"
-                                alt="Beach House">
+                            <img src="images/4.jpg" alt="Beach House">
                             <div class="portfolio-info">
                                 <h3>Beach House</h3>
                                 <p class="location">📍 Malibu, CA</p>
@@ -194,31 +190,33 @@
             <p class="section-subtitle">Watch our work in action</p>
 
             <div class="videos-grid">
-                <div class="video-card">
+                <!-- YouTube link example: replace VIDEO_ID with actual id -->
+                <div class="video-card" data-src="videos/sudheesh_lakshmi_wrk.mp4">
                     <div class="video-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800"
-                            alt="Construction Process">
+                        <img src="images/video-thumb-1.jpg" alt="Construction Process">
                         <div class="play-button">▶</div>
                     </div>
-                    <h3>Construction Process Overview</h3>
-                    <p>See how we build from foundation to finish</p>
+                    <h3>Construction Process Overview</h3 <p>See how we build from foundation to finish</p>
                 </div>
-                <div class="video-card">
+
+                <!-- Local video example: place a video file in /videos/ and optional poster in /images/ -->
+                <div class="video-card" data-src="videos/ajith_arun_wrk.mp4">
                     <div class="video-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800"
-                            alt="Client Testimonials">
+                        <img src="images/video-thumb-2.jpg" alt="Project Tour">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h3>Project Tour</h3>
+                    <p>A walkthrough of a recently completed project</p>
+                </div>
+
+                <!-- Another YouTube/local hybrid example -->
+                <div class="video-card" data-src="videos/before_after_wrk.mp4">
+                    <div class="video-thumbnail">
+                        <img src="images/video-thumb-3.jpg" alt="Client Testimonials">
                         <div class="play-button">▶</div>
                     </div>
                     <h3>Client Testimonials</h3>
                     <p>Hear what our satisfied clients have to say</p>
-                </div>
-                <div class="video-card">
-                    <div class="video-thumbnail">
-                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800" alt="Modern Designs">
-                        <div class="play-button">▶</div>
-                    </div>
-                    <h3>Modern Design Showcase</h3>
-                    <p>Explore our innovative architectural designs</p>
                 </div>
             </div>
         </div>
@@ -318,13 +316,13 @@
                 <div class="footer-section">
                     <h4>Follow Us</h4>
                     <div class="social-links">
-                        <a href="https://facebook.com" target="_blank" class="social-link" aria-label="Facebook"
-                            title="Facebook">
+                        <a href="https://www.facebook.com/legendaryconstructions/" target="_blank" class="social-link"
+                            aria-label="Facebook" title="Facebook">
                             <span class="social-icon">📘</span>
                             <span class="social-text">Facebook</span>
                         </a>
-                        <a href="https://instagram.com" target="_blank" class="social-link" aria-label="Instagram"
-                            title="Instagram">
+                        <a href="https://www.instagram.com/legen_dary_constructions/" target="_blank"
+                            class="social-link" aria-label="Instagram" title="Instagram">
                             <span class="social-icon">📸</span>
                             <span class="social-text">Instagram</span>
                         </a>
@@ -342,7 +340,11 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Legendary Constructions. All rights reserved.</p>
+                <p>&copy; <span id="current-year">2025</span> Legendary Constructions. All rights reserved.
+                    <br>
+                    <small>Developed and maintained by <a href="https://www.linkedin.com/in/agarjun007" target="_blank"
+                            rel="noopener">Arjun A.G.</a></small>
+                </p>
             </div>
         </div>
     </footer>
