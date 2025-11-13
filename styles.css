@@ -918,3 +918,58 @@ body {
         bottom: -8px;
     }
 }
+
+/* Hide elements initially */
+.hidden {
+    display: none;
+}
+
+/* Spinner loader */
+.loader {
+    margin: 15px auto;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Status message */
+#statusMessage {
+    margin-top: 10px;
+    text-align: center;
+    font-weight: 600;
+}
+
+#statusMessage.success {
+    color: #28a745;
+    animation: fadeIn 0.5s ease-in;
+}
+
+#statusMessage.error {
+    color: #dc3545;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

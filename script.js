@@ -34,27 +34,45 @@ const swiper = new Swiper('.portfolio-swiper', {
 });
 
 // Contact form submission
-function handleSubmit(event) {
-    event.preventDefault();
+document.getElementById("contactForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    const form = event.target;
-    const formData = new FormData(form);
+    const loader = document.getElementById("loader");
+    const statusMessage = document.getElementById("statusMessage");
+    const submitBtn = document.getElementById("submitBtn");
 
-    // Show success message
-    alert('Thank you for your message! We will get back to you soon.');
+    // Reset states
+    loader.classList.remove("hidden");
+    statusMessage.classList.add("hidden");
+    submitBtn.disabled = true;
 
-    // Reset form
-    form.reset();
+    const formData = new FormData(this);
 
-    // In a real application, you would send this data to a server
-    // Example:
-    // fetch('/api/contact', {
-    //   method: 'POST',
-    //   body: formData
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data));
-}
+    try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbzGHiy0vPaRkutjXT3vgWPhMLSWXAfoqai32jUnAClMqLeuPEdG-uDDD67FRtJ4nNB8/exec", {
+            method: "POST",
+            body: formData,
+        });
+
+        if (response.ok) {
+            loader.classList.add("hidden");
+            statusMessage.textContent = "✅ Message sent successfully!";
+            statusMessage.className = "success";
+            statusMessage.classList.remove("hidden");
+            this.reset();
+        } else {
+            throw new Error("Form submission failed. Try again.");
+        }
+    } catch (error) {
+        loader.classList.add("hidden");
+        statusMessage.textContent = "❌ " + error.message;
+        statusMessage.className = "error";
+        statusMessage.classList.remove("hidden");
+    } finally {
+        submitBtn.disabled = false;
+    }
+});
+
 
 // Add scroll animation for elements
 const observerOptions = {
