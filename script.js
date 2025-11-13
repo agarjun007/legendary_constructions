@@ -46,14 +46,12 @@ document.getElementById("contactForm").addEventListener("submit", async function
     statusMessage.classList.add("hidden");
     submitBtn.disabled = true;
 
-    const formData = new FormData(this);
-
     try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbzGHiy0vPaRkutjXT3vgWPhMLSWXAfoqai32jUnAClMqLeuPEdG-uDDD67FRtJ4nNB8/exec", {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbwRQtfXY8dcUyYpDD9SeZsn4lHT38s_RifaIcRb-6MDi9PY6iTAmd7NVmAypk6DO0gB/exec", {
             method: "POST",
-            body: formData,
+            body: new FormData(document.getElementById("contactForm"))
         });
-
+        console.log("response: ", document.getElementById("contactForm"),response)
         if (response.ok) {
             loader.classList.add("hidden");
             statusMessage.textContent = "✅ Message sent successfully!";
@@ -106,65 +104,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('current-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Video card click handling: open YouTube links or local videos in modal
-    const videoCards = document.querySelectorAll('.video-card');
+document.querySelectorAll('.video-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const youtube = card.getAttribute('data-youtube');
+    const src = card.getAttribute('data-src');
 
-    function createModal(videoSrc, isYouTube) {
-        // modal container
-        const modal = document.createElement('div');
-        modal.className = 'video-modal';
+    // create modal container
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
 
-        const inner = document.createElement('div');
-        inner.className = 'video-inner';
+    const inner = document.createElement('div');
+    inner.className = 'video-inner';
 
-        // close button
-        const closeBtn = document.createElement('button');
-        closeBtn.className = 'close-btn';
-        closeBtn.innerHTML = '✕';
-        closeBtn.addEventListener('click', () => {
-            if (!isYouTube) {
-                const vid = modal.querySelector('video');
-                if (vid) { vid.pause(); vid.src = ''; }
-            }
-            document.body.removeChild(modal);
-        });
+    // close button
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'close-btn';
+    closeBtn.innerHTML = '✕';
+    closeBtn.addEventListener('click', () => document.body.removeChild(modal));
 
-        if (isYouTube) {
-            // open youtube in a new tab instead of modal for simplicity
-            window.open(videoSrc, '_blank', 'noopener');
-            return null;
-        }
-
-        // local video element
-        const video = document.createElement('video');
-        video.controls = true;
-        video.autoplay = true;
-        video.src = videoSrc;
-
-        inner.appendChild(video);
-        modal.appendChild(inner);
-        modal.appendChild(closeBtn);
-        document.body.appendChild(modal);
-
-        return modal;
+    // add content
+    if (youtube) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `${youtube}?autoplay=1&mute=1`;
+      iframe.width = '100%';
+      iframe.height = '600';
+      iframe.allow = 'autoplay; encrypted-media';
+      iframe.allowFullscreen = true;
+      iframe.frameBorder = '0';
+      inner.appendChild(iframe);
+    } else if (src) {
+      const video = document.createElement('video');
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      inner.appendChild(video);
     }
 
-    videoCards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            const youtube = card.getAttribute('data-youtube');
-            const src = card.getAttribute('data-src');
+    modal.appendChild(inner);
+    modal.appendChild(closeBtn);
+    document.body.appendChild(modal);
+  });
+});
 
-            if (youtube) {
-                // open YouTube link in new tab
-                createModal(youtube, true);
-                return;
-            }
 
-            if (src) {
-                // open modal with local video
-                createModal(src, false);
-                return;
-            }
-        });
-    });
 });
